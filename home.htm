@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <title>Text editor</title>
+</head>
+<body>
+  <div id="toolbar">
+      <button onclick="toggleBold()" id="boldButton">Bold</button>
+      <button onclick="toggleItalic()" id="italicButton">Italic</button>
+      <button onclick="toggleUnderline()" id="underlineButton">Underline</button>
+      <button onclick="window.open('locked.png')">???</button>
+  </div>
+  <div id="editor" contenteditable="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>

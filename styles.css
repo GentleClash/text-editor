@@ -1,0 +1,11 @@
+#toolbar {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  #editor {
+    border: 1px solid black;
+    height: fit-content;
+    padding: 5px;
+  }
+  
