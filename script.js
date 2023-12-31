@@ -41,3 +41,20 @@ function toggleUnderline() {
         button.textContent = 'Underline | On';
     }
 }
+function increaseFontSize() {
+    const button = document.getElementById('increaseButton');
+    const currentSize = document.queryCommandValue('fontSize');
+    const newSize = parseInt(currentSize) + 1;
+    
+    document.execCommand('fontSize', false, newSize);
+    button.textContent = 'Font Size: ' + newSize;
+}
+
+function decreaseFontSize() {
+    const button = document.getElementById('decreaseButton');
+    const currentSize = document.queryCommandValue('fontSize');
+    const newSize = parseInt(currentSize) - 1;
+
+    document.execCommand('fontSize', false, newSize);
+    button.textContent = 'Font Size: ' + newSize;
+}
