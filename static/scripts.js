@@ -58,3 +58,31 @@ function decreaseFontSize() {
     document.execCommand('fontSize', false, newSize);
     button.textContent = 'Font Size: ' + newSize;
 }
+
+function centerText() {
+      const isCentered = document.queryCommandState('justifyCenter');
+      if (isCentered) {
+        document.execCommand('justifyLeft', false, null);
+      } else {
+        document.execCommand('justifyCenter', false, null);
+      }
+}
+
+
+    document.getElementById('generatePdfBtn').addEventListener('click', function() {
+        var htmlContent = document.getElementById('editor').innerHTML;
+        fetch('/generate-pdf', {
+          method: 'POST',
+          body: JSON.stringify({html_content: htmlContent}),
+          headers: {'Content-Type': 'application/json'},
+        })
+        .then(response => response.blob())
+        .then(blob => {
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'output.pdf';
+          a.click();
+        })
+        .catch(console.error);
+       });
