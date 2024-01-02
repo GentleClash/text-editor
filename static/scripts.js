@@ -69,13 +69,13 @@ function centerText() {
 }
 
 
-    document.getElementById('generatePdfBtn').addEventListener('click', function() {
-        var htmlContent = document.getElementById('editor').innerHTML;
-        fetch('/generate-pdf', {
+document.getElementById('generatePdfBtn').addEventListener('click', function() {
+    var htmlContent = document.getElementById('editor').innerHTML;
+    fetch('/generate-pdf', {
           method: 'POST',
           body: JSON.stringify({html_content: htmlContent}),
           headers: {'Content-Type': 'application/json'},
-        })
+    })
         .then(response => response.blob())
         .then(blob => {
           var url = window.URL.createObjectURL(blob);
@@ -83,6 +83,21 @@ function centerText() {
           a.href = url;
           a.download = 'output.pdf';
           a.click();
+    })
+        .catch(console.error);
+});
+
+document.getElementById('uploadPdf').addEventListener('click', function() {
+    var pdfFile = document.getElementById('pdfInput').files[0];
+    var formData = new FormData();
+    formData.append('pdf', pdfFile);
+    fetch('/upload-pdf', {
+            method: 'POST',
+            body: formData,
+    })
+        .then(response => response.text())
+        .then(text => {
+            document.getElementById('editor').innerText = text;
         })
         .catch(console.error);
-       });
+});

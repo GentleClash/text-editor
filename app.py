@@ -1,6 +1,8 @@
 import os
 from flask import Flask, render_template, make_response, request
 from xhtml2pdf import pisa
+from pdfminer.high_level import extract_text
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -22,6 +24,15 @@ def generate_pdf():
     os.remove('generated.pdf')
     return response
 
+@app.route('/upload-pdf', methods=['POST'])
+def upload_pdf():
+   pdf_file = request.files['pdf']
+   filename = secure_filename(pdf_file.filename)
+   pdf_path = os.path.join('temp', filename)
+   pdf_file.save(pdf_path)
+   text = extract_text(pdf_path)
+   os.remove(pdf_path)
+   return text
 
 if __name__ == '__main__':
     app.run(debug=True)
