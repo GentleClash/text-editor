@@ -11,11 +11,20 @@
 }
   
 #editor {
-    border: 1px solid black;
-    height: fit-content;
-    padding: 5px;
-  }
+  border: 1px solid black;
+  height: fit-content;
+  padding: 5px;
+  max-height: 300px;  
+  overflow: auto;
+}
 
+#modified {
+  border: 1px solid black;
+  height: fit-content;
+  padding: 5px;
+  max-height: 300px;  
+  overflow: auto;
+}
 #external {
   display: flex;
   justify-content: right;

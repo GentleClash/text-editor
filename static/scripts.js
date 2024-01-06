@@ -47,7 +47,7 @@ function increaseFontSize() {
     const newSize = parseInt(currentSize) + 1;
     
     document.execCommand('fontSize', false, newSize);
-    button.textContent = 'Font Size: ' + newSize;
+    button.textContent = 'Increase Font Size: ' + newSize;
 }
 
 function decreaseFontSize() {
@@ -56,7 +56,7 @@ function decreaseFontSize() {
     const newSize = parseInt(currentSize) - 1;
 
     document.execCommand('fontSize', false, newSize);
-    button.textContent = 'Font Size: ' + newSize;
+    button.textContent = 'Decrease Font Size: ' + newSize;
 }
 
 function centerText() {
@@ -101,3 +101,25 @@ document.getElementById('uploadPdf').addEventListener('click', function() {
         })
         .catch(console.error);
 });
+
+document.getElementById('paraphrase').addEventListener('click', function(){
+    var editor = document.getElementById('editor');
+    var modified = document.getElementById('modified');
+    var selectedText = window.getSelection().toString();
+    var textToParaphrase = selectedText || editor.innerText;
+    fetch('/paraphrase', {
+        method: 'POST',
+        body: JSON.stringify({text: textToParaphrase}),
+        headers: {'Content-Type': 'application/json'},
+    })
+        .then(response => response.text())
+        .then(text => {
+            if (selectedText) {
+                var modifiedText = editor.innerText.replace(selectedText, text);
+                modified.innerText = modifiedText;
+            } else {
+                modified.innerText = text;
+            }
+        })
+        .catch(console.error);
+})
