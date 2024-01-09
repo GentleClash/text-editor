@@ -12,18 +12,19 @@
       <button onclick="increaseFontSize()" id="increaseButton">Increase font size</button>
       <button onclick="decreaseFontSize()" id="decreaseButton">Decrease font size</button>
       <button onclick="centerText()" id="centerButton">Center</button>
-      <button id="generatePdfBtn">Save as PDF</button>
       <button id="paraphrase">Paraphrase</button>
       <button onclick="window.open('static/locked.png')">???</button><br/>
       
   </div><br/>
+  
   <div id="external">
       <input type="file" id="pdfInput">
       <button id="uploadPdf">PDF to text</button><br/>
       
   </div>
-  <div id="editor" contenteditable="true"></div><br/><br/><hr size=5 color=black><br/><br/>
-  <div id="modified" contenteditable="true"></div>
+  <div id="editor" contenteditable="true"></div><br/><br/><button id="generatePdfBtn1">Save as PDF</button>
+  <hr size=5 color=black><br/><br/>
+  <div id="modified" contenteditable="true"></div><br/><br/><button id="generatePdfBtn2">Save as PDF</button>
   <script src="static/scripts.js"></script>
 </body>
 </html>

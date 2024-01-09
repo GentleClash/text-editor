@@ -45,7 +45,7 @@ function increaseFontSize() {
     const button = document.getElementById('increaseButton');
     const currentSize = document.queryCommandValue('fontSize');
     const newSize = parseInt(currentSize) + 1;
-    
+
     document.execCommand('fontSize', false, newSize);
     button.textContent = 'Increase Font Size: ' + newSize;
 }
@@ -60,40 +60,58 @@ function decreaseFontSize() {
 }
 
 function centerText() {
-      const isCentered = document.queryCommandState('justifyCenter');
-      if (isCentered) {
+    const isCentered = document.queryCommandState('justifyCenter');
+    if (isCentered) {
         document.execCommand('justifyLeft', false, null);
-      } else {
+    } else {
         document.execCommand('justifyCenter', false, null);
-      }
+    }
 }
 
 
-document.getElementById('generatePdfBtn').addEventListener('click', function() {
+document.getElementById('generatePdfBtn1').addEventListener('click', function () {
     var htmlContent = document.getElementById('editor').innerHTML;
     fetch('/generate-pdf', {
-          method: 'POST',
-          body: JSON.stringify({html_content: htmlContent}),
-          headers: {'Content-Type': 'application/json'},
+        method: 'POST',
+        body: JSON.stringify({ html_content: htmlContent }),
+        headers: { 'Content-Type': 'application/json' },
     })
         .then(response => response.blob())
         .then(blob => {
-          var url = window.URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = url;
-          a.download = 'output.pdf';
-          a.click();
-    })
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'output.pdf';
+            a.click();
+        })
         .catch(console.error);
 });
 
-document.getElementById('uploadPdf').addEventListener('click', function() {
+document.getElementById('generatePdfBtn2').addEventListener('click', function () {
+    var htmlContent = document.getElementById('modified').innerHTML;
+    fetch('/generate-pdf', {
+        method: 'POST',
+        body: JSON.stringify({ html_content: htmlContent }),
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(response => response.blob())
+        .then(blob => {
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'modified output.pdf';
+            a.click();
+        })
+        .catch(console.error);
+});
+
+document.getElementById('uploadPdf').addEventListener('click', function () {
     var pdfFile = document.getElementById('pdfInput').files[0];
     var formData = new FormData();
     formData.append('pdf', pdfFile);
     fetch('/upload-pdf', {
-            method: 'POST',
-            body: formData,
+        method: 'POST',
+        body: formData,
     })
         .then(response => response.text())
         .then(text => {
@@ -102,23 +120,24 @@ document.getElementById('uploadPdf').addEventListener('click', function() {
         .catch(console.error);
 });
 
-document.getElementById('paraphrase').addEventListener('click', function(){
+document.getElementById('paraphrase').addEventListener('click', function () {
     var editor = document.getElementById('editor');
     var modified = document.getElementById('modified');
     var selectedText = window.getSelection().toString();
-    var textToParaphrase = selectedText || editor.innerText;
+    var textToParaphrase = selectedText;
     fetch('/paraphrase', {
         method: 'POST',
-        body: JSON.stringify({text: textToParaphrase}),
-        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ text: textToParaphrase }),
+        headers: { 'Content-Type': 'application/json' },
     })
         .then(response => response.text())
         .then(text => {
-            if (selectedText) {
-                var modifiedText = editor.innerText.replace(selectedText, text);
+            if (modified.innerText.trim() != "") {
+                var modifiedText = modified.innerText.replace(selectedText, text);
                 modified.innerText = modifiedText;
             } else {
-                modified.innerText = text;
+                var modifiedText = editor.innerText.replace(selectedText, text);
+                modified.innerText = modifiedText;
             }
         })
         .catch(console.error);

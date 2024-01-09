@@ -53,16 +53,21 @@ def upload_pdf():
 
 @app.route('/paraphrase', methods=['POST'])
 def paraphrase():
-    text = request.get_json().get('text')
-    contents[0]['parts'].append({'text': text})
-    contents[0]['parts'].append({'text': ' '})
-    gemini = genai.GenerativeModel(model_name=model)
-    response = gemini.generate_content(
-    contents,
-    generation_config=generation_config,
-    safety_settings=safety_settings,
-    stream=False)
-    return response.text
+    try:
+        text = request.get_json().get('text')
+        contents_ = contents
+        contents_[0]['parts'].append({'text': text})
+        contents_[0]['parts'].append({'text': ' '})
+        gemini = genai.GenerativeModel(model_name=model)
+        response = gemini.generate_content(
+            contents_,
+            generation_config=generation_config,
+            safety_settings=safety_settings,
+            stream=False)
+        del contents_
+        return response.candidates[0].content.parts[0].text
+    except Exception as e:
+        return str(e)
 
 
 if __name__ == '__main__':
