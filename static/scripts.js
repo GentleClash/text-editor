@@ -120,6 +120,12 @@ document.getElementById('uploadPdf').addEventListener('click', function () {
         .catch(console.error);
 });
 
+function copyBelow(){
+    var editor = document.getElementById('editor');
+    var modified = document.getElementById('modified');
+    modified.innerText = editor.innerText;
+
+}
 document.getElementById('paraphrase').addEventListener('click', function () {
     var editor = document.getElementById('editor');
     var modified = document.getElementById('modified');
