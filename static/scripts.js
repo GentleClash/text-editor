@@ -123,13 +123,24 @@ document.getElementById('uploadPdf').addEventListener('click', function () {
 function copyBelow(){
     var editor = document.getElementById('editor');
     var modified = document.getElementById('modified');
-    modified.innerText = editor.innerText;
+    if (editor.innerText.trim() === "") {
+        alert("Pray tell how to copy nothing?");
+        
+    }
+    else{
+    modified.innerText = editor.innerText;}
 
 }
 document.getElementById('paraphrase').addEventListener('click', function () {
     var editor = document.getElementById('editor');
     var modified = document.getElementById('modified');
     var selectedText = window.getSelection().toString();
+    
+    if (selectedText.trim() === "") {
+        alert("Please select some text to paraphrase.");
+        return;
+    }
+    
     var textToParaphrase = selectedText;
     fetch('/paraphrase', {
         method: 'POST',
@@ -148,3 +159,18 @@ document.getElementById('paraphrase').addEventListener('click', function () {
         })
         .catch(console.error);
 })
+
+function summarise(){
+    var editor = document.getElementById('editor');
+    var textToSummarise = editor.innerText;
+    fetch('/summarise', {
+        method: 'POST',
+        body: JSON.stringify({ text: textToSummarise }),
+        headers: { 'Content-Type': 'application/json' },
+    })
+        .then(response => response.text())
+        .then(text => {
+            modified.innerText = text;
+        })
+        .catch(console.error);
+}
