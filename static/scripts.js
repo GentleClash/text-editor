@@ -107,6 +107,10 @@ document.getElementById('generatePdfBtn2').addEventListener('click', function ()
 
 document.getElementById('uploadPdf').addEventListener('click', function () {
     var pdfFile = document.getElementById('pdfInput').files[0];
+    if (!pdfFile) {
+        alert("Please choose a file first.");
+        return;
+    }
     var formData = new FormData();
     formData.append('pdf', pdfFile);
     fetch('/upload-pdf', {
