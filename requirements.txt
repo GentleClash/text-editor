@@ -83,6 +83,6 @@ tzlocal==5.2
 uritools==4.0.2
 urllib3==2.1.0
 webencodings==0.5.1
-Werkzeug==3.0.1
+Werkzeug==3.0.3
 xhtml2pdf==0.2.13
 yarl==1.9.4
