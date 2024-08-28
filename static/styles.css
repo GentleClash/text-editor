@@ -1,32 +1,54 @@
-#toolbar {
-  display: flex;
-  justify-content: space-around;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background-color: white;
-  padding: 10px;
-  z-index: 9999;
-}
-  
-#editor {
-  border: 1px solid black;
-  height: fit-content;
-  padding: 5px;
-  max-height: 300px;  
-  overflow: auto;
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f0f0f0;
 }
 
-#modified {
-  border: 1px solid black;
-  height: fit-content;
-  padding: 5px;
-  max-height: 300px;  
-  overflow: auto;
+#toolbar, #external {
+  margin-bottom: 20px;
+  background-color: #e0e0e0;
+  padding: 10px;
+  border-radius: 5px;
 }
-#external {
-  display: flex;
-  justify-content: right;
-  margin-top: 25px;
+
+button {
+  margin: 5px;
+  padding: 8px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#editor, #modified {
+  border: 1px solid #ccc;
+  min-height: 200px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+hr {
+  margin: 20px 0;
+}
+
+input[type="file"] {
+  margin-right: 10px;
+}
+
+#generatePdfBtn1, #generatePdfBtn2 {
+  background-color: #008CBA;
+}
+
+#generatePdfBtn1:hover, #generatePdfBtn2:hover {
+  background-color: #007B9A;
 }
