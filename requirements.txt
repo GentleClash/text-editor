@@ -86,3 +86,4 @@ webencodings==0.5.1
 Werkzeug==3.0.3
 xhtml2pdf==0.2.13
 yarl==1.9.4
+gunicorn
